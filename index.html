@@ -68,13 +68,68 @@
             text-align: center;
         }
 
-        #discordLink, #kickLink {
+        #discordLink, #kickLink, #shareButton {
             color: #00ff00;
             text-decoration: none;
+            cursor: pointer;
         }
 
-        #discordLink:hover, #kickLink:hover {
+        #discordLink:hover, #kickLink:hover, #shareButton:hover {
             text-decoration: underline;
+        }
+
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #111;
+            padding: 20px;
+            border: 2px solid #00ff00;
+            border-radius: 10px;
+            max-width: 400px;
+            text-align: center;
+            z-index: 1;
+        }
+
+        .popup-message {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+        .popup-buttons {
+            display: flex;
+            justify-content: center;
+        }
+
+        .popup-close {
+            background-color: #007e00;
+            color: #00ff00;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            margin-right: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .popup-close:hover {
+            background-color: #005900;
+        }
+
+        .popup-copy {
+            background-color: #007e00;
+            color: #00ff00;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .popup-copy:hover {
+            background-color: #005900;
         }
     </style>
 </head>
@@ -97,6 +152,16 @@
             <p>Version 1.1</p>
             <p>Made by Tommager110</p>
         </div>
+
+        <div class="popup" id="sharePopup">
+            <p class="popup-message">tommager.ddns.net</p>
+            <div class="popup-buttons">
+                <button class="popup-copy" onclick="copyToClipboard()">Copy</button>
+                <button class="popup-close" onclick="closePopup()">Close</button>
+            </div>
+        </div>
+
+        <a id="shareButton" onclick="openSharePopup()">Share</a>
     </main>
 
     <footer>
@@ -111,6 +176,26 @@
         function openKick() {
             window.location.href = "https://kick.com/tommageris";
         }
+
+        function openSharePopup() {
+            document.getElementById("sharePopup").style.display = "block";
+        }
+
+        function closePopup() {
+            document.getElementById("sharePopup").style.display = "none";
+        }
+
+        function copyToClipboard() {
+                        var textToCopy = "tommager.ddns.net";
+            navigator.clipboard.writeText(textToCopy)
+                .then(function () {
+                    alert("Link copied to clipboard: " + textToCopy);
+                })
+                .catch(function (error) {
+                    console.error("Unable to copy text: ", error);
+                });
+        }
     </script>
 </body>
 </html>
+
