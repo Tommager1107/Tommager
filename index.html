@@ -78,6 +78,11 @@
             text-decoration: underline;
         }
 
+        #shareIcon {
+            font-size: 24px;
+            margin-right: 5px;
+        }
+
         .popup {
             display: none;
             position: fixed;
@@ -156,12 +161,14 @@
         <div class="popup" id="sharePopup">
             <p class="popup-message">tommager.ddns.net</p>
             <div class="popup-buttons">
-                <button class="popup-copy" onclick="copyToClipboard()">Copy</button>
-                <button class="popup-close" onclick="closePopup()">Close</button>
+                                <button class="popup-copy" onclick="copyToClipboard()">Copy</button>
+                <button class="popup-close" onclick="closePopup()">X</button>
             </div>
         </div>
 
-        <a id="shareButton" onclick="openSharePopup()">Share</a>
+        <a id="shareButton" onclick="openSharePopup()">
+            <span id="shareIcon">&#128279;</span> Share
+        </a>
     </main>
 
     <footer>
@@ -186,7 +193,7 @@
         }
 
         function copyToClipboard() {
-                        var textToCopy = "tommager.ddns.net";
+            var textToCopy = "tommager.ddns.net";
             navigator.clipboard.writeText(textToCopy)
                 .then(function () {
                     alert("Link copied to clipboard: " + textToCopy);
