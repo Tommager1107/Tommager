@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Draggable Horse Game</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background-color: #87CEEB; /* Sky Blue */
+            font-family: 'Courier New', monospace;
+            font-size: 18px;
+        }
+
+        .horse {
+            white-space: pre;
+            color: #8B4513; /* Saddle Brown */
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            cursor: grab;
+            user-select: none;
+        }
+
+        .horse:active {
+            cursor: grabbing;
+        }
+    </style>
+</head>
+<body>
+    <div class="horse" id="draggableHorse" draggable="true" onmousedown="startDragging(event)">
+        ,  ,.~"""""~~..                                           ___
+        )\,)\`-,       `~._                                     .'   ``._
+        \  \ | )           `~._                   .-"""""-._   /         \
+       _/ ('  ( _(\            `~~,__________..-"'          `-<           \
+       )   )   `   )/)   )        \                            \           |
+      ') /)`      \` \,-')/\      (                             \          |
+      (_(\ /7      |.   /'  )'  _(`                              |         |
+          \\      (  `.     ')_/`                                |         /
+           \       \   \                                         |        (
+            \ )  /\/   /                                         |         `~._
+             `-._)     |                                        /.            `~,
+                       |                          |           .'  `~.          (`
+                        \                       _,\          /       \        (``
+                         `/      /       __..-i"   \         |        \      (``
+                        .'     _/`-..--""      `.   `.        \        ) _.~<``
+                      .'    _.j     /            `-.  `.       \
+                     |    .'       ;               `.  `.      \
+                    \_  `.       |               .'  .'`.     \
+                       `.  `-, __ \             .'  .'   /    .'
+                         `.  `'` \|  |           /  .-`     /   .'
+                           `-._.--t  ;          |_.-)      /  .'
+                                  ; /           \  /      / .'
+                                 / /             `'     .' /
+                                /,_\                  .',_(
+                               /___(                 /___(  
+    </div>
+
+    <script>
+        let offsetX, offsetY;
+        let isDragging = false;
+
+        function startDragging(e) {
+            const horse = document.getElementById('draggableHorse');
+            const rect = horse.getBoundingClientRect();
+
+            offsetX = e.clientX - rect.left;
+            offsetY = e.clientY - rect.top;
+
+            document.addEventListener('mousemove', handleDragging);
+            document.addEventListener('mouseup', stopDragging);
+
+            isDragging = true;
+        }
+
+        function handleDragging(e) {
+            if (isDragging) {
+                const horse = document.getElementById('draggableHorse');
+                horse.style.left = e.clientX - offsetX + 'px';
+                horse.style.top = e.clientY - offsetY + 'px';
+            }
+        }
+
+        function stopDragging() {
+            document.removeEventListener('mousemove', handleDragging);
+            document.removeEventListener('mouseup', stopDragging);
+
+            isDragging = false;
+        }
+    </script>
+</body>
+</html>

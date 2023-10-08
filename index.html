@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tommager1107</title>
+    <style>
+        body {
+            font-family: 'Courier New', monospace;
+            margin: 0;
+            padding: 0;
+            background-color: #000;
+            color: #00ff00; /* Lime Green */
+            text-align: center;
+        }
+
+        header {
+            background-color: #111;
+            padding: 20px;
+            color: #00ff00;
+            font-size: 24px;
+            border-bottom: 2px solid #00ff00;
+        }
+
+        main {
+            padding: 20px;
+        }
+
+        p {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+        button {
+            padding: 12px 24px;
+            font-size: 18px;
+            background-color: #007e00; /* Darker Green */
+            color: #00ff00;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-right: 10px;
+        }
+
+        button:hover {
+            background-color: #005900; /* Even Darker Green */
+        }
+
+        .info-box {
+            background-color: #000;
+            border: 2px solid #00ff00;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px auto;
+            max-width: 600px;
+            text-align: left;
+            overflow-wrap: break-word;
+        }
+
+        .additional-info {
+            background-color: #000;
+            border: 2px solid #00ff00;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px auto;
+            max-width: 600px;
+            text-align: center;
+        }
+
+        #discordLink, #kickLink, #shareButton, #gamesButton {
+            color: #00ff00;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        #discordLink:hover, #kickLink:hover, #shareButton:hover, #gamesButton:hover {
+            text-decoration: underline;
+        }
+
+        #shareIcon {
+            font-size: 24px;
+            margin-right: 5px;
+        }
+
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #111;
+            padding: 20px;
+            border: 2px solid #00ff00;
+            border-radius: 10px;
+            max-width: 400px;
+            text-align: center;
+            z-index: 1;
+        }
+
+        .popup-message {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+        .popup-buttons {
+            display: flex;
+            justify-content: center;
+        }
+
+        .popup-close {
+            background-color: #007e00;
+            color: #00ff00;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            margin-right: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .popup-close:hover {
+            background-color: #005900;
+        }
+
+        .popup-copy {
+            background-color: #007e00;
+            color: #00ff00;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .popup-copy:hover {
+            background-color: #005900;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="https://cdn.discordapp.com/attachments/1046803911308214282/1160597402777047110/standard_19.gif?ex=65353d8f&is=6522c88f&hm=d21bc809841ca0af8e50188c7b1be7c75353f224e15135bf94d1a6de8b08c721&" alt="Animated Gift">
+    </header>
+
+    <main>
+        <div class="info-box">
+            <p>
+                Ďakujem, že si navštívil moju stránku. Tu nájdeš informácie o mne a mojej komunite.
+            </p>
+        </div>
+
+        <div class="additional-info">
+            <button id="discordLink" onclick="openDiscord()">Pripoj sa na Discord - MajerGang</button>
+            <button id="kickLink" onclick="openKick()">Kick - Tommager</button>
+            <div class="button-container">
+                <button id="gamesButton" onclick="openGamesPage()">Games</button>
+                <button id="shareButton" onclick="openSharePopup()">
+                    <span id="shareIcon">&#128279;</span> Share
+                </button>
+            </div>
+        </div>
+
+        <div class="popup" id="sharePopup">
+            <p class="popup-message">tommager.ddns.net</p>
+            <div class="popup-buttons">
+                <button class="popup-copy" onclick="copyToClipboard()">Copy</button>
+                <button class="popup-close" onclick="closePopup()">X</button>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function openDiscord() {
+            window.location.href = "https://discord.gg/Dw4Q6bzbSy";
+        }
+
+        function openKick() {
+            window.location.href = "https://kick.com/tommageris";
+        }
+
+        function openGamesPage() {
+            window.location.href = "games.html";
+        }
+
+        function openSharePopup() {
+            document.getElementById("sharePopup").style.display = "block";
+        }
+
+        function closePopup() {
+            document.getElementById("sharePopup").style.display = "none";
+        }
+
+        function copyToClipboard() {
+            var textToCopy = "tommager.ddns.net";
+            navigator.clipboard.writeText(textToCopy)
+                .then(function () {
+                    alert("Link copied to clipboard: " + textToCopy);
+                })
+                .catch(function (error) {
+                    console.error("Unable to copy text: ", error);
+                });
+        }
+    </script>
+</body>
+</html>
+
