@@ -136,6 +136,18 @@
         .popup-copy:hover {
             background-color: #005900;
         }
+
+        .green-square {
+            background-color: #007e00; /* Darker Green */
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px auto;
+            max-width: 600px;
+        }
+
+        .version-info {
+            color: #00ff00;
+        }
     </style>
 </head>
 <body>
@@ -153,11 +165,17 @@
         <div class="additional-info">
             <button id="discordLink" onclick="openDiscord()">Pripoj sa na Discord - MajerGang</button>
             <button id="kickLink" onclick="openKick()">Kick - Tommager</button>
-            <div class="button-container">
-                <button id="gamesButton" onclick="openGamesPage()">Games</button>
-                <button id="shareButton" onclick="openSharePopup()">
-                    <span id="shareIcon">&#128279;</span> Share
-                </button>
+        </div>
+
+        <div class="green-square">
+            <button id="gamesButton" onclick="openGamesPage()">Games</button>
+            <button id="shareButton" onclick="openSharePopup()">
+                <span id="shareIcon">&#128279;</span> Share
+            </button>
+
+            <div class="additional-info version-info">
+                <p>Version 1.1</p>
+                <p>Made by Tommager110</p>
             </div>
         </div>
 
