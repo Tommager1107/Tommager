@@ -68,13 +68,13 @@
             text-align: center;
         }
 
-        #discordLink, #kickLink, #shareButton, #gamesButton {
+        #discordLink, #kickLink, #shareButton, #gamesButton, #loggedInButton {
             color: #00ff00;
             text-decoration: none;
             cursor: pointer;
         }
 
-        #discordLink:hover, #kickLink:hover, #shareButton:hover, #gamesButton:hover {
+        #gamesButton:hover, #shareButton:hover, #discordLink:hover, #kickLink:hover, #loggedInButton:hover {
             text-decoration: underline;
         }
 
@@ -108,7 +108,7 @@
             justify-content: center;
         }
 
-        .popup-close {
+        .popup-close, .popup-copy {
             background-color: #007e00;
             color: #00ff00;
             border: none;
@@ -119,11 +119,11 @@
             transition: background-color 0.3s ease;
         }
 
-        .popup-close:hover {
+        .popup-close:hover, .popup-copy:hover {
             background-color: #005900;
         }
 
-        .popup-copy {
+        #loginButton, #loggedInButton {
             background-color: #007e00;
             color: #00ff00;
             border: none;
@@ -131,28 +131,11 @@
             padding: 10px 20px;
             cursor: pointer;
             transition: background-color 0.3s ease;
+            margin-top: 10px;
         }
 
-        .popup-copy:hover {
+        #loginButton:hover, #loggedInButton:hover {
             background-color: #005900;
-        }
-
-        .green-square {
-            background-color: #007e00; /* Darker Green */
-            padding: 20px;
-            border-radius: 10px;
-            margin: 20px auto;
-            max-width: 600px;
-        }
-
-        .version-info {
-            color: #00ff00;
-        }
-
-        .countdown {
-            color: #00ff00;
-            font-size: 24px;
-            margin-top: 20px;
         }
     </style>
 </head>
@@ -169,8 +152,8 @@
         </div>
 
         <div class="additional-info">
-            <button id="discordLink" onclick="openDiscord()">Pripoj sa na Discord - MajerGang</button>
-            <button id="kickLink" onclick="openKick()">Kick - Tommager</button>
+            <button id="discordLink" onclick="openLink('https://discord.gg/FAJqJRtTqs')">Pripoj sa na Discord - MajerGang</button>
+            <button id="kickLink" onclick="openLink('https://kick.com/tommageris')">Kick - Tommager</button>
         </div>
 
         <div class="green-square">
@@ -178,82 +161,111 @@
             <button id="shareButton" onclick="openSharePopup()">
                 <span id="shareIcon">&#128279;</span> Share
             </button>
+            <button id="loginButton" onclick="openLoginPopup()">Login</button>
+            <button id="loggedInButton" style="display: none;" disabled>Logged In</button>
 
             <div class="additional-info version-info">
                 <p>Version 1.1</p>
-                <p>Made by Tommager110</p>
-            </div>
-        </div>
-
-        <div class="popup" id="sharePopup">
-            <p class="popup-message">tommager.ddns.net</p>
-            <div class="popup-buttons">
-                <button class="popup-copy" onclick="copyToClipboard()">Copy</button>
-                <button class="popup-close" onclick="closePopup()">X</button>
+                <p>Made by Tommager1107</p>
             </div>
         </div>
 
         <div class="countdown" id="countdown"></div>
+
+        <!-- Login Popup -->
+        <div class="popup" id="loginPopup">
+            <h2>Login</h2>
+            <input type="email" id="loginEmail" placeholder="Email">
+            <input type="password" id="loginPassword" placeholder="Password">
+            <button onclick="login()">Login</button>
+            <button onclick="closeLoginPopup()">Close</button>
+        </div>
+
+        <!-- Share Popup -->
+        <div class="popup" id="sharePopup">
+            <p class="popup-message">Vitaj na mojej stránke, Tommager! Skopíruj si tento odkaz:</p>
+            <input type="text" value="tommager.ddns.net" id="shareMessage" readonly>
+            <div class="popup-buttons">
+                <button class="popup-copy" onclick="copyToClipboard()">Copy to Clipboard</button>
+                <button class="popup-close" onclick="closePopup()">Close</button>
+            </div>
+        </div>
     </main>
 
+
     <script>
-        // Set the date of the next update
-        var nextUpdateDate = new Date("October 13, 2023 00:00:00").getTime();
+       
+    // Function to open the games page
+    function openGamesPage() {
+        // Add your logic to open the games page (e.g., redirect or show content)
+        alert("Opening Games Page!");
+    }
 
-        // Update the countdown every 1 second
-        var x = setInterval(function() {
-            // Get the current date and time
-            var now = new Date().getTime();
+    // Function to open a link in a new tab
+    function openLink(url) {
+        window.open(url, '_blank');
+    }
 
-            // Calculate the remaining time
-            var distance = nextUpdateDate - now;
+    // Function to open the share popup
+    function openSharePopup() {
+        document.getElementById('sharePopup').style.display = 'block';
+    }
 
-            // Calculate days, hours, minutes, and seconds
-            var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    // Function to close the share popup
+    function closePopup() {
+        document.getElementById('sharePopup').style.display = 'none';
+    }
 
-            // Display the countdown
-            document.getElementById("countdown").innerHTML = "Next update in: " + days + " days, " + hours + " hours, " + minutes + " minutes, " + seconds + " seconds";
+    // Function to copy text to clipboard
+    function copyToClipboard() {
+        var copyText = document.getElementById("shareMessage");
+        copyText.select();
+        document.execCommand("copy");
+        alert("Link copied to clipboard!");
+    }
 
-            // If the countdown is over, display a message
-            if (distance < 0) {
-                clearInterval(x);
-                document.getElementById("countdown").innerHTML = "EXPIRED";
-            }
-        }, 1000);
+    // Countdown Timer
+    var countDownDate = new Date("Oct 13, 2023 22:02:00").getTime();
 
-        function openDiscord() {
-            window.location.href = "https://discord.gg/Dw4Q6bzbSy";
+    var x = setInterval(function () {
+        var now = new Date().getTime();
+        var distance = countDownDate - now;
+
+        var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        document.getElementById("countdown").innerHTML = "Next update in: " + days + " days, " + hours + " hours, " + minutes + " minutes, " + seconds + " seconds";
+
+        if (distance < 0) {
+            clearInterval(x);
+            document.getElementById("countdown").innerHTML = "EXPIRED";
         }
+    }, 1000);
 
-        function openKick() {
-            window.location.href = "https://kick.com/tommageris";
-        }
+    // Function to open the login popup
+    function openLoginPopup() {
+        document.getElementById('loginPopup').style.display = 'block';
+    }
 
-        function openGamesPage() {
-            window.location.href = "games.html";
-        }
+    // Function to perform login
+    function login() {
+        var email = document.getElementById("loginEmail").value;
+        var password = document.getElementById("loginPassword").value;
 
-        function openSharePopup() {
-            document.getElementById("sharePopup").style.display = "block";
+        if (email && password) {
+            document.getElementById('loginPopup').style.display = 'none';
+            document.getElementById('loginButton').style.display = 'none';
+            document.getElementById('loggedInButton').style.display = 'block';
         }
+    }
 
-        function closePopup() {
-            document.getElementById("sharePopup").style.display = "none";
-        }
-
-        function copyToClipboard() {
-            var textToCopy = "tommager.ddns.net";
-            navigator.clipboard.writeText(textToCopy)
-                .then(function () {
-                    alert("Link copied to clipboard: " + textToCopy);
-                })
-                .catch(function (error) {
-                    console.error("Unable to copy text: ", error);
-                });
-        }
+    // Function to close the login popup
+    function closeLoginPopup() {
+        document.getElementById('loginPopup').style.display = 'none';
+    }
+	
     </script>
 </body>
 </html>
