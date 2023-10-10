@@ -68,13 +68,13 @@
             text-align: center;
         }
 
-        #discordLink, #kickLink, #shareButton, #gamesButton, #loggedInButton {
+        #discordLink, #kickLink, #shareButton, #gamesButton, #loggedInButton, #loginButton {
             color: #00ff00;
             text-decoration: none;
             cursor: pointer;
         }
 
-        #gamesButton:hover, #shareButton:hover, #discordLink:hover, #kickLink:hover, #loggedInButton:hover {
+        #gamesButton:hover, #shareButton:hover, #discordLink:hover, #kickLink:hover, #loggedInButton:hover, #loginButton:hover {
             text-decoration: underline;
         }
 
@@ -98,32 +98,23 @@
             z-index: 1;
         }
 
-        .popup-message {
-            font-size: 18px;
-            margin-bottom: 20px;
+        .popup-content {
+            text-align: center;
         }
 
-        .popup-buttons {
-            display: flex;
-            justify-content: center;
-        }
-
-        .popup-close, .popup-copy {
-            background-color: #007e00;
-            color: #00ff00;
-            border: none;
+        .popup-input {
+            width: 80%;
+            padding: 10px;
+            margin: 10px;
+            border: 1px solid #00ff00;
             border-radius: 5px;
-            padding: 10px 20px;
-            margin-right: 10px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
         }
 
-        .popup-close:hover, .popup-copy:hover {
-            background-color: #005900;
+        .popup-buttons button {
+            margin-top: 10px;
         }
 
-        #loginButton, #loggedInButton {
+        #loggedInButton {
             background-color: #007e00;
             color: #00ff00;
             border: none;
@@ -132,9 +123,10 @@
             cursor: pointer;
             transition: background-color 0.3s ease;
             margin-top: 10px;
+            display: none;
         }
 
-        #loginButton:hover, #loggedInButton:hover {
+        #loggedInButton:hover {
             background-color: #005900;
         }
     </style>
@@ -167,6 +159,8 @@
             <div class="additional-info version-info">
                 <p>Version 1.1</p>
                 <p>Made by Tommager1107</p>
+				<p>"Nex update will be the best update."</p>
+				<p>...JUST WAIT...</p>
             </div>
         </div>
 
@@ -175,97 +169,101 @@
         <!-- Login Popup -->
         <div class="popup" id="loginPopup">
             <h2>Login</h2>
-            <input type="email" id="loginEmail" placeholder="Email">
-            <input type="password" id="loginPassword" placeholder="Password">
-            <button onclick="login()">Login</button>
-            <button onclick="closeLoginPopup()">Close</button>
+            <div class="popup-content">
+                <input type="email" id="loginEmail" class="popup-input" placeholder="Email">
+                <br>
+                <input type="password" id="loginPassword" class="popup-input" placeholder="Password">
+                <div class="popup-buttons">
+                    <button onclick="login()">Login</button>
+                    <button onclick="closeLoginPopup()">Close</button>
+                </div>
+            </div>
         </div>
 
         <!-- Share Popup -->
         <div class="popup" id="sharePopup">
-            <p class="popup-message">Vitaj na mojej stránke, Tommager! Skopíruj si tento odkaz:</p>
-            <input type="text" value="tommager.ddns.net" id="shareMessage" readonly>
-            <div class="popup-buttons">
-                <button class="popup-copy" onclick="copyToClipboard()">Copy to Clipboard</button>
-                <button class="popup-close" onclick="closePopup()">Close</button>
+            <h2>Share</h2>
+            <div class="popup-content">
+                <input type="text" id="shareMessage" value="tommager.ddns.net" readonly class="popup-input">
+                <div class="popup-buttons">
+                    <button onclick="copyToClipboard()">Copy</button>
+                    <button onclick="closePopup()">Close</button>
+                </div>
             </div>
         </div>
     </main>
 
-
     <script>
-       
-    // Function to open the games page
-    function openGamesPage() {
-        // Add your logic to open the games page (e.g., redirect or show content)
-        alert("Opening Games Page!");
-    }
-
-    // Function to open a link in a new tab
-    function openLink(url) {
-        window.open(url, '_blank');
-    }
-
-    // Function to open the share popup
-    function openSharePopup() {
-        document.getElementById('sharePopup').style.display = 'block';
-    }
-
-    // Function to close the share popup
-    function closePopup() {
-        document.getElementById('sharePopup').style.display = 'none';
-    }
-
-    // Function to copy text to clipboard
-    function copyToClipboard() {
-        var copyText = document.getElementById("shareMessage");
-        copyText.select();
-        document.execCommand("copy");
-        alert("Link copied to clipboard!");
-    }
-
-    // Countdown Timer
-    var countDownDate = new Date("Oct 13, 2023 22:02:00").getTime();
-
-    var x = setInterval(function () {
-        var now = new Date().getTime();
-        var distance = countDownDate - now;
-
-        var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-        var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-        document.getElementById("countdown").innerHTML = "Next update in: " + days + " days, " + hours + " hours, " + minutes + " minutes, " + seconds + " seconds";
-
-        if (distance < 0) {
-            clearInterval(x);
-            document.getElementById("countdown").innerHTML = "EXPIRED";
+        // Function to open the games page
+        function openGamesPage() {
+            // Add your logic to open the games page (e.g., redirect or show content)
+            alert("Opening Games Page!");
         }
-    }, 1000);
 
-    // Function to open the login popup
-    function openLoginPopup() {
-        document.getElementById('loginPopup').style.display = 'block';
-    }
+        // Function to open a link in a new tab
+        function openLink(url) {
+            window.open(url, '_blank');
+        }
 
-    // Function to perform login
-    function login() {
-        var email = document.getElementById("loginEmail").value;
-        var password = document.getElementById("loginPassword").value;
+        // Function to open the share popup
+        function openSharePopup() {
+            document.getElementById('sharePopup').style.display = 'block';
+        }
 
-        if (email && password) {
+        // Function to close the share popup
+        function closePopup() {
+            document.getElementById('sharePopup').style.display = 'none';
+        }
+
+        // Function to copy text to clipboard
+        function copyToClipboard() {
+            var copyText = document.getElementById("shareMessage");
+            copyText.select();
+            document.execCommand("copy");
+            alert("Link copied to clipboard!");
+        }
+
+        // Countdown Timer
+        var countDownDate = new Date("Oct 13, 2023 22:02:00").getTime();
+
+        var x = setInterval(function () {
+            var now = new Date().getTime();
+            var distance = countDownDate - now;
+
+            var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById("countdown").innerHTML = "Next update in: " + days + " days, " + hours + " hours, " + minutes + " minutes, " + seconds + " seconds";
+
+            if (distance < 0) {
+                clearInterval(x);
+                document.getElementById("countdown").innerHTML = "EXPIRED";
+            }
+        }, 1000);
+
+        // Function to open the login popup
+        function openLoginPopup() {
+            document.getElementById('loginPopup').style.display = 'block';
+        }
+
+        // Function to perform login
+        function login() {
+            var email = document.getElementById("loginEmail").value;
+            var password = document.getElementById("loginPassword").value;
+
+            if (email && password) {
+                document.getElementById('loginPopup').style.display = 'none';
+                document.getElementById('loginButton').style.display = 'none';
+                document.getElementById('loggedInButton').style.display = 'block';
+            }
+        }
+
+        // Function to close the login popup
+        function closeLoginPopup() {
             document.getElementById('loginPopup').style.display = 'none';
-            document.getElementById('loginButton').style.display = 'none';
-            document.getElementById('loggedInButton').style.display = 'block';
         }
-    }
-
-    // Function to close the login popup
-    function closeLoginPopup() {
-        document.getElementById('loginPopup').style.display = 'none';
-    }
-	
     </script>
 </body>
 </html>
