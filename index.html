@@ -1,269 +1,56 @@
 <!DOCTYPE html>
-<html lang="sk">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tommager1107</title>
+    <title>Just Wait</title>
     <style>
         body {
             font-family: 'Courier New', monospace;
-            margin: 0;
-            padding: 0;
             background-color: #000;
-            color: #00ff00; /* Lime Green */
-            text-align: center;
-        }
-
-        header {
-            background-color: #111;
-            padding: 20px;
             color: #00ff00;
-            font-size: 24px;
-            border-bottom: 2px solid #00ff00;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            flex-direction: column;
         }
 
-        main {
-            padding: 20px;
-        }
-
-        p {
+        #waitingText {
             font-size: 18px;
+            color: #00ff00;
             margin-bottom: 20px;
         }
 
-        button {
-            padding: 12px 24px;
-            font-size: 18px;
-            background-color: #007e00; /* Darker Green */
-            color: #00ff00;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            margin-right: 10px;
-        }
-
-        button:hover {
-            background-color: #005900; /* Even Darker Green */
-        }
-
-        .info-box {
-            background-color: #000;
-            border: 2px solid #00ff00;
-            border-radius: 10px;
-            padding: 20px;
-            margin: 20px auto;
-            max-width: 600px;
-            text-align: left;
-            overflow-wrap: break-word;
-        }
-
-        .additional-info {
-            background-color: #000;
-            border: 2px solid #00ff00;
-            border-radius: 10px;
-            padding: 20px;
-            margin: 20px auto;
-            max-width: 600px;
-            text-align: center;
-        }
-
-        #discordLink, #kickLink, #shareButton, #gamesButton, #loggedInButton, #loginButton {
-            color: #00ff00;
-            text-decoration: none;
-            cursor: pointer;
-        }
-
-        #gamesButton:hover, #shareButton:hover, #discordLink:hover, #kickLink:hover, #loggedInButton:hover, #loginButton:hover {
-            text-decoration: underline;
-        }
-
-        #shareIcon {
+        #timer {
             font-size: 24px;
-            margin-right: 5px;
-        }
-
-        .popup {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: #111;
-            padding: 20px;
-            border: 2px solid #00ff00;
-            border-radius: 10px;
-            max-width: 400px;
-            text-align: center;
-            z-index: 1;
-        }
-
-        .popup-content {
-            text-align: center;
-        }
-
-        .popup-input {
-            width: 80%;
-            padding: 10px;
-            margin: 10px;
-            border: 1px solid #00ff00;
-            border-radius: 5px;
-        }
-
-        .popup-buttons button {
-            margin-top: 10px;
-        }
-
-        #loggedInButton {
-            background-color: #007e00;
-            color: #00ff00;
-            border: none;
-            border-radius: 5px;
-            padding: 10px 20px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            margin-top: 10px;
-            display: none;
-        }
-
-        #loggedInButton:hover {
-            background-color: #005900;
         }
     </style>
 </head>
 <body>
-    <header>
-        <img src="https://cdn.discordapp.com/attachments/1046803911308214282/1160860744699617411/standard_20.gif?ex=653632d1&is=6523bdd1&hm=6fa717497b93a350cbdda9ffc688b6ec930602b1ddd0539ee26dec192db3c050&" alt="Animated Gift">
-    </header>
-
-    <main>
-        <div class="info-box">
-            <p>
-                Ďakujem, že si navštívil moju stránku. Tu nájdeš informácie o mne a mojej komunite.
-            </p>
-        </div>
-
-        <div class="additional-info">
-            <button id="discordLink" onclick="openLink('https://discord.gg/FAJqJRtTqs')">Pripoj sa na Discord - MajerGang</button>
-            <button id="kickLink" onclick="openLink('https://kick.com/tommageris')">Kick - Tommager</button>
-        </div>
-
-        <div class="green-square">
-            <button id="gamesButton" onclick="openGamesPage()">Games</button>
-            <button id="shareButton" onclick="openSharePopup()">
-                <span id="shareIcon">&#128279;</span> Share
-            </button>
-            <button id="loginButton" onclick="openLoginPopup()">Login</button>
-            <button id="loggedInButton" style="display: none;" disabled>Logged In</button>
-
-            <div class="additional-info version-info">
-                <p>Version 1.1</p>
-                <p>Made by Tommager1107</p>
-				<p>"Nex update will be the best update."</p>
-				<p>...JUST WAIT...</p>
-            </div>
-        </div>
-
-        <div class="countdown" id="countdown"></div>
-
-        <!-- Login Popup -->
-        <div class="popup" id="loginPopup">
-            <h2>Login</h2>
-            <div class="popup-content">
-                <input type="email" id="loginEmail" class="popup-input" placeholder="Email">
-                <br>
-                <input type="password" id="loginPassword" class="popup-input" placeholder="Password">
-                <div class="popup-buttons">
-                    <button onclick="login()">Login</button>
-                    <button onclick="closeLoginPopup()">Close</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Share Popup -->
-        <div class="popup" id="sharePopup">
-            <h2>Share</h2>
-            <div class="popup-content">
-                <input type="text" id="shareMessage" value="tommager.ddns.net" readonly class="popup-input">
-                <div class="popup-buttons">
-                    <button onclick="copyToClipboard()">Copy</button>
-                    <button onclick="closePopup()">Close</button>
-                </div>
-            </div>
-        </div>
-    </main>
+    <div id="waitingText">...JUST WAIT...</div>
+    <div id="timer"></div>
 
     <script>
-        // Function to open the games page
-        function openGamesPage() {
-            // Add your logic to open the games page (e.g., redirect or show content)
-            alert("Opening Games Page!");
-        }
+        const countdownDate = new Date("October 20, 2023 00:00:00").getTime();
 
-        // Function to open a link in a new tab
-        function openLink(url) {
-            window.open(url, '_blank');
-        }
+        const x = setInterval(function() {
+            const now = new Date().getTime();
+            const distance = countdownDate - now;
 
-        // Function to open the share popup
-        function openSharePopup() {
-            document.getElementById('sharePopup').style.display = 'block';
-        }
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-        // Function to close the share popup
-        function closePopup() {
-            document.getElementById('sharePopup').style.display = 'none';
-        }
-
-        // Function to copy text to clipboard
-        function copyToClipboard() {
-            var copyText = document.getElementById("shareMessage");
-            copyText.select();
-            document.execCommand("copy");
-            alert("Link copied to clipboard!");
-        }
-
-        // Countdown Timer
-        var countDownDate = new Date("Oct 13, 2023 22:02:00").getTime();
-
-        var x = setInterval(function () {
-            var now = new Date().getTime();
-            var distance = countDownDate - now;
-
-            var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-            document.getElementById("countdown").innerHTML = "Next update in: " + days + " days, " + hours + " hours, " + minutes + " minutes, " + seconds + " seconds";
+            document.getElementById("timer").innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
 
             if (distance < 0) {
                 clearInterval(x);
-                document.getElementById("countdown").innerHTML = "EXPIRED";
+                document.getElementById("timer").innerHTML = "EXPIRED";
             }
         }, 1000);
-
-        // Function to open the login popup
-        function openLoginPopup() {
-            document.getElementById('loginPopup').style.display = 'block';
-        }
-
-        // Function to perform login
-        function login() {
-            var email = document.getElementById("loginEmail").value;
-            var password = document.getElementById("loginPassword").value;
-
-            if (email && password) {
-                document.getElementById('loginPopup').style.display = 'none';
-                document.getElementById('loginButton').style.display = 'none';
-                document.getElementById('loggedInButton').style.display = 'block';
-            }
-        }
-
-        // Function to close the login popup
-        function closeLoginPopup() {
-            document.getElementById('loginPopup').style.display = 'none';
-        }
     </script>
 </body>
 </html>
